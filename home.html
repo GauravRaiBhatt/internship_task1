@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Demo Website</title>
+    <style>
+        body {
+            background-color: rgba(127, 255, 212, 0.29);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        #container {
+            margin: auto;
+            height: 70vh;
+            width: 50%;
+            background-color: rgba(127, 255, 212, 0.29);
+            border: 2px solid black;
+            border-radius: 23px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .sub_container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 70%;
+            margin: 17px;
+        }
+
+        select {
+            width: 15vw;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 2px 19px;
+            /* border-radius: 19px; */
+            padding: auto 22px;
+        }
+
+        button {
+            cursor: pointer;
+            margin: 23px;
+            padding: 8px 17px;
+            border-radius: 23px;
+            font-size: 1.2rem;
+        }
+
+        button:hover {
+            background-color: coral;
+            color: white;
+            font-size: 1.4rem;
+            font-weight: bold;
+            padding: 10px 29px;
+        }
+
+        @media only screen and (max-width: 750px) {
+            #container {
+                height: 60vh;
+            }
+
+            .sub_container {
+                flex-direction: column;
+            }
+
+            select {
+                width: unset;
+            }
+        }
+
+        @media only screen and (max-width : 1050px) and (min-width : 751px) {
+            #container {
+                height: 50vw;
+            }
+        }
+
+        @media only screen and (max-width : 350px) {
+            #container {
+                height: auto;
+            }
+
+            select {
+                font-weight: normal;
+                width: 30vw;
+            }
+        }
+
+        @media only screen and (max-width : 210px) {
+            #container {
+                height: auto;
+            }
+
+            select {
+                font-size: 1rem;
+                font-weight: normal;
+                width: 30vw;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Ridobiko Solutions Private Limited</h1>
+    <div id="container">
+        <div class="sub_container">
+            <label for="city">Choose your city :</label>
+            <select name="city" id="city_combobox">
+                <option value="delhi">Delhi</option>
+                <option value="mumbai">Mumbai</option>
+                <option value="chennai">Chennai</option>
+                <option value="sultanpur">Sultanpur</option>
+            </select>
+        </div>
+        <div class="sub_container">
+            <label for="type">Choose your type :</label>
+            <select name="type" id="type_combobox">
+                <option value="bike">Bike</option>
+                <option value="car">Car</option>
+            </select>
+        </div>
+        <button onclick="ShowResult()">Check</button>
+    </div>
+    <script>
+        function ShowResult() {
+            let city = document.getElementById('city_combobox').value;
+            let type = document.getElementById('type_combobox').value;
+            window.localStorage.setItem("pageTitle", 'My Demo Website');
+            window.localStorage.setItem("city", city);
+            window.localStorage.setItem("type", type);
+            window.location.href = "https://drive.google.com/file/d/14xRbo2j4efFcYjGvuSIiLlQnYihNmZaS/view?usp=sharing";
+        }
+    </script>
+</body>
+
+</html>

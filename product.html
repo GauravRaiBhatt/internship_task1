@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: rgba(127, 255, 212, 0.29);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        #details {
+            margin: 23px auto;
+            height: 100vh;
+            width: 50vw;
+            background-color: rgba(127, 255, 212, 0.2);
+            border: 2px solid black;
+            border-radius: 23px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 23px;
+        }
+
+        #heading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        img {
+            height: 110vh;
+        }
+
+        select {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 2px 19px;
+            padding: auto 22px;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 10px;
+            border-spacing: 12px;
+        }
+
+        td {
+            background-color: red;
+        }
+
+        table {
+            background-color: rgba(128, 128, 128, 0.664);
+            margin: 3rem;
+        }
+
+        @media only screen and (min-width: 400px) {
+            img {
+                height: 45vh;
+            }
+
+            table {
+                font-size: 1rem;
+                width: 90vw;
+            }
+
+            #details {
+                height: 50vh;
+            }
+        }
+
+        @media only screen and (min-width: 700px) {
+            select {
+                width: 15vw;
+            }
+
+            img {
+                height: 60vh;
+            }
+
+            table {
+                font-size: 1.3rem;
+                width: 80vw;
+            }
+
+            #details {
+                height: 60vh;
+            }
+        }
+
+        @media only screen and (min-width: 1024px) {
+            img {
+                height: 75vh;
+            }
+
+            table {
+                font-size: 1.5rem;
+            }
+
+            #details {
+                height: 75vh;
+            }
+        }
+
+        @media only screen and (min-width: 1330px) {
+            img {
+                height: 90vh;
+            }
+
+            table {
+                font-size: 2rem;
+            }
+        }
+
+
+        @media only screen and (max-height:820px) {
+
+
+            #selectVT {
+                display: flex;
+                flex-direction: column;
+            }
+
+            img {
+                height: 30vh;
+            }
+
+            table {
+                font-size: 1rem;
+                width: 80vw;
+            }
+
+            #details {
+                height: 45vh;
+            }
+        }
+
+        @media only screen and (max-width: 500px) {
+            #selectvt {
+                display: flex;
+                flex-direction: column;
+            }
+
+            select {
+                width: unset;
+            }
+
+            table {
+                font-size: 0.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="heading">
+        <h1>Product Details</h1>
+    </div>
+
+    <div id="selectVT">
+        <label for="vehicalType">Choose the vehical type :</label>
+        <select name="vehicalType" id="vehicalType" onchange="showDetails() ">
+            <option value="scooter">Scooter</option>
+            <option value="bike" selected>Bike</option>
+            <option value="economy">Economy</option>
+            <option value="sedan">Sedan</option>
+        </select>
+    </div>
+
+    <div id="details"></div>
+
+    <!-- Script file -->
+    <script>
+        let pageTitle = window.localStorage.getItem('pageTitle');
+        let city = window.localStorage.getItem('city');
+        let type = window.localStorage.getItem('type');
+        let vehicalType = document.getElementById('vehicalType').value;
+        pageTitle = pageTitle + '/product';
+        document.title = pageTitle;
+
+        const data = [
+            {
+                city: 'delhi',
+                type: 'bike',
+                vehicleName: 'Activa',
+                vehicalType: 'scooter',
+                rentPerDay: 400,
+                deposit: 2000,
+                imgSource: 'https://www.ridobiko.com/sample_images/activa.png'
+            },
+            {
+                city: 'delhi',
+                type: 'bike',
+                vehicleName: 'FZ',
+                vehicalType: 'bike',
+                rentPerDay: 700,
+                deposit: 2000,
+                imgSource: 'https://www.ridobiko.com/sample_images/fz.png'
+            },
+            {
+                city: 'delhi',
+                type: 'car',
+                vehicleName: 'Wagon R',
+                vehicalType: 'economy',
+                rentPerDay: 1200,
+                deposit: 5000,
+                imgSource: 'https://www.ridobiko.com/sample_images/wagon.png'
+            },
+            {
+                city: 'delhi',
+                type: 'car',
+                vehicleName: 'Swift',
+                vehicalType: 'sedan',
+                rentPerDay: 1800,
+                deposit: 2000,
+                imgSource: 'https://www.ridobiko.com/sample_images/swift.png'
+            },
+        ];
+
+        const showDetails = () => {
+            let faverableOutcomes = [];
+            vehicalType = document.getElementById('vehicalType').value;
+            for (const d of data) {
+                if (d.city === city && d.type === type && d.vehicalType == vehicalType) {
+                    faverableOutcomes.push(d);
+                }
+            }
+
+            let home = document.getElementById('details');
+
+            for (const i of document.getElementsByTagName('img')) {
+                i.remove();
+            }
+            for (const i of document.getElementsByTagName('p')) {
+                i.remove();
+            }
+            for (const i of document.getElementsByTagName('table')) {
+                i.remove();
+            }
+
+
+            if (faverableOutcomes.length) {
+
+                let div1 = document.createElement('div');
+                let table = document.createElement("table");
+
+                // creating rows                        
+                let tr1 = document.createElement("tr");
+                let th1 = document.createElement('th');
+                let th2 = document.createElement('th');
+                let th3 = document.createElement('th');
+                let th4 = document.createElement('th');
+                let th5 = document.createElement('th');
+                let th6 = document.createElement('th');
+
+                th1.innerText = 'City';
+                th2.innerText = 'Type';
+                th3.innerText = 'Vehical Name';
+                th4.innerText = 'Rent per day';
+                th5.innerText = 'Deposit';
+                th6.innerText = 'Vehical Type';
+
+                tr1.appendChild(th1);
+                tr1.appendChild(th2);
+                tr1.appendChild(th3);
+                tr1.appendChild(th4);
+                tr1.appendChild(th5);
+                tr1.appendChild(th6);
+                table.appendChild(tr1); // add the row to the end of the table body
+
+                for (const i of faverableOutcomes) {
+                    let img = document.createElement('img');
+                    img.src = i.imgSource;
+                    home.appendChild(img);
+
+                    // Row 2 => Data
+                    let tr2 = document.createElement("tr");
+                    let td1 = document.createElement('td');
+                    let td2 = document.createElement('td');
+                    let td3 = document.createElement('td');
+                    let td4 = document.createElement('td');
+                    let td5 = document.createElement('td');
+                    let td6 = document.createElement('td');
+
+                    td1.innerText = i.city;
+                    td2.innerText = i.type;
+                    td3.innerText = i.vehicleName
+                    td4.innerText = i.rentPerDay;
+                    td5.innerText = i.deposit;
+                    td6.innerText = i.vehicalType;
+
+                    tr2.appendChild(td1);
+                    tr2.appendChild(td2);
+                    tr2.appendChild(td3);
+                    tr2.appendChild(td4);
+                    tr2.appendChild(td5);
+                    tr2.appendChild(td6);
+                    table.appendChild(tr2);
+
+                    div1.appendChild(table);
+                    document.getElementsByTagName('body')[0].appendChild(div1);
+                }
+            } else {
+                let p = document.createElement('p');
+                p.innerText = "OOPs!  there is no element available";
+                home.appendChild(p);
+            }
+
+        }
+    </script>
+</body>
+
+</html>
